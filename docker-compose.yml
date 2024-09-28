@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  edu-frontend:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: dev_runner
+    environment:
+      - WATCHPACK_POLLING=true
+    volumes:
+      - .:/app
+    ports:
+      - 3000:3000
+    # ttyをtrueにすると「! Corepack is about to download ...」と出て止まる
+    # 裏では下記のインタラクションが走っているのが原因
+    # > ? Do you want to continue? [Y/n]
+    tty: false
